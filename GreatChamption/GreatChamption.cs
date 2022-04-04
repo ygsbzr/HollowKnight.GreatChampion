@@ -30,6 +30,10 @@ namespace GreatChampion
             {
                 return "Fierce God of Explosion";
             }
+           if(key== "FALSE_KNIGHT_DREAM_MAIN")
+            {
+                return "GreatChampion";
+            }
             return orig;
         }
 
