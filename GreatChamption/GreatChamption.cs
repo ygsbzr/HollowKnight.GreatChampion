@@ -3,12 +3,14 @@ namespace GreatChampion
 {
     public class GreatChampion : Mod,ITogglableMod
     {
-        public override string GetVersion() => "1.0";
+        public override string GetVersion() => "2.0-beta";
         public override List<(string, string)> GetPreloadNames()
         {
             return new()
             {
                 ("GG_Failed_Champion", "False Knight Dream"),
+                ("GG_Failed_Champion", "FK Barrel Summon Dream"),
+                ("Mines_04", "Crystal Flyer")
             };
         }
         public GreatChampion instance;

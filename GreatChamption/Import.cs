@@ -8,3 +8,4 @@ global using HutongGames.PlayMaker;
 global using HutongGames.PlayMaker.Actions;
 global using URandom = UnityEngine.Random;
 global using System.Reflection;
+global using VEnum = Vasi.EnumerableUtil;

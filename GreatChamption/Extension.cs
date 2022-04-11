@@ -11,7 +11,7 @@ namespace GreatChampion
 			foreach(float velocity in Velocities)
             {
 				float origspeed = velocity;
-				if (spawnpos.y > 35f)
+				if (spawnpos.y > 30f)
 					return;
 				GameObject cloneobject = UnityEngine.Object.Instantiate(orig, spawnpos, rotate);
 				cloneobject.LocateMyFSM("shockwave").GetState("Move").RemoveAction(3);
@@ -22,7 +22,7 @@ namespace GreatChampion
 				clonefsm.GetState("Move").GetAction<FloatAdd>().add = origspeed / 2f;
 				clonefsm.GetState("Move").GetAction<SetVelocity2d>().x = velocity;
 				Vector3 origscale = cloneobject.transform.localScale;
-				cloneobject.SetCustomScale(new(origscale.x * 0.5f, origscale.y, origscale.z));
+				cloneobject.SetCustomScale(new(origscale.x * 0.5f, origscale.y,origscale.z));
 				UObject.Destroy(cloneobject, time);
 				/*if(cloneobject.GetComponent<DamageHero>()==null)
                 {
@@ -69,7 +69,22 @@ namespace GreatChampion
         {
 			GameObject cloneobject = UObject.Instantiate(orig, pos,Quaternion.identity);
 			cloneobject.SetActive(true);
+			
 			return cloneobject;
+        }
+		public static GameObject[] SpawnObjectsShoot(GameObject orig,Vector3 pos,int amount,Vector2 origv,bool isright)
+        {
+			List<GameObject> list = new List<GameObject>();
+			for(int i = 0; i < amount; i++)
+            {
+				GameObject shoot=UObject.Instantiate(orig, pos+new Vector3(0f,5f*i,0f), Quaternion.identity);
+				Modding.Logger.LogDebug($"Spawn Barrel{i} ");
+				var rigid=shoot.GetComponent<Rigidbody2D>();
+				rigid.gravityScale = URandom.Range(0f,0.5f);
+				rigid.velocity = new((origv.x + 2 * i) * (isright ? 1 : -1), origv.y + 3*i); ;
+				list.Add(shoot);
+            }
+			return list.ToArray();
         }
 	}
 }
