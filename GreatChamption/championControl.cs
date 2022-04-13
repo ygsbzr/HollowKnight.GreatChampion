@@ -3,6 +3,7 @@ namespace GreatChampion
 {
     internal class ChampionControl:MonoBehaviour
     {
+        private SRandom _rand=new SRandom();
         private void Start()
         {
             On.EnemyDreamnailReaction.RecieveDreamImpact += EnemyDreamnailReaction_RecieveDreamImpact;
@@ -21,8 +22,7 @@ namespace GreatChampion
             _anim = gameObject.GetComponent<tk2dSpriteAnimator>();
             _Hitanim=hitter.GetComponent<tk2dSpriteAnimator>();
         }
-
-        private void EnemyDreamnailReaction_RecieveDreamImpact(On.EnemyDreamnailReaction.orig_RecieveDreamImpact orig, EnemyDreamnailReaction self)
+            private void EnemyDreamnailReaction_RecieveDreamImpact(On.EnemyDreamnailReaction.orig_RecieveDreamImpact orig, EnemyDreamnailReaction self)
         {
             orig(self);
             if(PlayerData.instance.equippedCharm_30)
@@ -46,13 +46,13 @@ namespace GreatChampion
             });
             control.GetState("JA Antic").InsertMethod(0,() =>
             {
-                int choose = URandom.Range(0, 15);
+                int choose = _rand.Next(0, 15);
                 if(choose<5)
                 {
                     _anim.GetClipByName("Jump Antic").fps = 20;
                     _anim.GetClipByName("Jump Attack Up").fps = 25;
                 }
-                else if(choose<10)
+                else if(5<choose&&choose<10)
                 {
                     _anim.GetClipByName("Jump Antic").fps = 25;
                     _anim.GetClipByName("Jump Attack Up").fps = 20;
@@ -65,13 +65,13 @@ namespace GreatChampion
             });
             control.GetState("JA Hit").InsertMethod(0, () =>
             {
-                int choose = URandom.Range(0, 15);
+                int choose = _rand.Next(0, 15);
                 if (choose < 5)
                 {
                    
                     _anim.GetClipByName("Jump Attack Hit 1").fps = 20;
                 }
-                else if (choose < 10)
+                else if (5 < choose && choose < 10)
                 {
                     
                     _anim.GetClipByName("Jump Attack Hit 1").fps = 25;
@@ -84,13 +84,13 @@ namespace GreatChampion
             });
             control.GetState("JA Recoil").InsertMethod(0, () =>
             {
-                int choose = URandom.Range(0, 15);
+                int choose = _rand.Next(0, 15);
                 if (choose < 5)
                 {
 
                     _anim.GetClipByName("Jump Attack Hit 2").fps = 20;
                 }
-                else if (choose < 10)
+                else if (5 < choose && choose < 10)
                 {
 
                     _anim.GetClipByName("Jump Attack Hit 2").fps = 25;
@@ -103,13 +103,13 @@ namespace GreatChampion
             });
             control.GetState("JA Recoil 2").InsertMethod(0, () =>
             {
-                int choose = URandom.Range(0, 15);
+                int choose = _rand.Next(0, 15);
                 if (choose < 5)
                 {
 
                     _anim.GetClipByName("Jump Attack Hit 3").fps = 20;
                 }
-                else if (choose < 10)
+                else if (5 < choose && choose < 10)
                 {
 
                     _anim.GetClipByName("Jump Attack Hit 3").fps = 25;
@@ -122,12 +122,12 @@ namespace GreatChampion
             });
             control.GetState("Jump").InsertMethod(0, () =>
             {
-                int choose = URandom.Range(0, 15);
+                int choose = _rand.Next(0, 15);
                 if (choose < 5)
                 {
                     _anim.GetClipByName("Jump").fps = 20;
                 }
-                else if (choose < 10)
+                else if (5 < choose && choose < 10)
                 {
                     _anim.GetClipByName("Jump").fps = 25;
                 }
@@ -135,6 +135,11 @@ namespace GreatChampion
                 {
                     _anim.GetClipByName("Jump").fps = 30;
                 }
+            });
+            control.GetState("Land Noise").InsertMethod(0,()=>
+            {
+                Extension.SpawnObjectCustomDouble(ResourceLoader.origwave, 20f, new( gameObject.transform.position.x,26f), 3);
+                Modding.Logger.LogDebug("Spawn Wave");
             });
             FsmState rollstate = control.CreateState("Roll");
             control.GetState("Move Choice").AddTransition("START ROLL", "Roll");
@@ -164,6 +169,8 @@ namespace GreatChampion
                 _anim.Play("Stun Roll");
                 Vector2 vector = new(20f * ((gameObject.transform.localScale.x < 0) ? -1 : 1), 0f);
                 gameObject.GetComponent<Rigidbody2D>().velocity = vector;
+                gameObject.GetComponent<HealthManager>().InvincibleFromDirection = 0;
+                gameObject.GetComponent<HealthManager>().IsInvincible = true;
                 StartCoroutine(RollToHero());
             });
             control.GetAction<SendRandomEvent>("Move Choice", 4).events = (from x in control.GetState("Move Choice").Transitions
@@ -171,8 +178,9 @@ namespace GreatChampion
                                                                            orderby x.Name
                                                                            select x).ToArray<FsmEvent>();
             control.GetAction<SendRandomEvent>("Move Choice", 4).weights = new FsmFloat[6] { 1f, 1f, 1f, 1f,1f,1f };
-            control.FsmVariables.GetFsmInt("Jump Barrel Min").Value = 1;
-            control.FsmVariables.GetFsmInt("Jump Barrel Max").Value = 1;
+            control.GetAction<SetScale>("S Attack Recover", 5).x = 1.25f;
+            control.FsmVariables.GetFsmInt("Jump Barrel Min").Value = 0;
+            control.FsmVariables.GetFsmInt("Jump Barrel Max").Value = 0;
             control.FsmVariables.GetFsmInt("Slam Barrel Min").Value = 0;
             control.FsmVariables.GetFsmInt("Slam Barrel Max").Value = 0;
             gameObject.GetComponent<HealthManager>().hp = 800;
@@ -188,6 +196,8 @@ namespace GreatChampion
             );
             gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             _anim.StopAndResetFrame();
+            gameObject.GetComponent<HealthManager>().InvincibleFromDirection = 0;
+            gameObject.GetComponent<HealthManager>().IsInvincible = false;
             gameObject.LocateMyFSM("FalseyControl").SendEvent("ROLLING");
         }
         public IEnumerator RollToCenter()

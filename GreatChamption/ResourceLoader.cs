@@ -10,6 +10,7 @@ namespace GreatChampion
         public static GameObject BarrelSummon;
         public static GameObject origBarrel;
         public static GameObject origCRshot;
+        //Battle Scene/False Knight New/Staff/Staff Head
         public static void LoadResource(Dictionary<string, Dictionary<string, GameObject>> preloadedObjects)
         {
             origChampion = preloadedObjects["GG_Failed_Champion"]["False Knight Dream"];

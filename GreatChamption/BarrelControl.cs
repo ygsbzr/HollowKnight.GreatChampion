@@ -11,10 +11,10 @@ namespace GreatChampion
             {
                if(isexp)
                 {
-                    Extension.SpawnObjectSingle(ResourceLoader.explodsion, gameObject.transform.position).SetCustomScalelazy(0.5f);
+                    GameObject bar = Extension.SpawnObjectSingle(ResourceLoader.explodsion, gameObject.transform.position);
+                    bar.SetCustomScalelazy(0.5f);
+                    UObject.Destroy(bar, 0.5f);
                 }
-                
-                   
                 
             }
         }
