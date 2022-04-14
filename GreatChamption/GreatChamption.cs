@@ -3,7 +3,7 @@ namespace GreatChampion
 {
     public class GreatChampion : Mod,ITogglableMod
     {
-        public override string GetVersion() => "2.0-beta";
+        public override string GetVersion() => "2.1";
         public override List<(string, string)> GetPreloadNames()
         {
             return new()
