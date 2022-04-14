@@ -139,7 +139,6 @@ namespace GreatChampion
             control.GetState("Land Noise").InsertMethod(0,()=>
             {
                 Extension.SpawnObjectCustomDouble(ResourceLoader.origwave, 20f, new( gameObject.transform.position.x,26f), 3);
-                Modding.Logger.LogDebug("Spawn Wave");
             });
             FsmState rollstate = control.CreateState("Roll");
             control.GetState("Move Choice").AddTransition("START ROLL", "Roll");
@@ -167,11 +166,10 @@ namespace GreatChampion
             rollstate.AddMethod(() =>
             {
                 _anim.Play("Stun Roll");
-                Vector2 vector = new(20f * ((gameObject.transform.localScale.x < 0) ? -1 : 1), 0f);
-                gameObject.GetComponent<Rigidbody2D>().velocity = vector;
+                gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 gameObject.GetComponent<HealthManager>().InvincibleFromDirection = 0;
                 gameObject.GetComponent<HealthManager>().IsInvincible = true;
-                StartCoroutine(RollToHero());
+                roll = true;
             });
             control.GetAction<SendRandomEvent>("Move Choice", 4).events = (from x in control.GetState("Move Choice").Transitions
                                                                            select x.FsmEvent into x
@@ -198,6 +196,7 @@ namespace GreatChampion
             _anim.StopAndResetFrame();
             gameObject.GetComponent<HealthManager>().InvincibleFromDirection = 0;
             gameObject.GetComponent<HealthManager>().IsInvincible = false;
+
             gameObject.LocateMyFSM("FalseyControl").SendEvent("ROLLING");
         }
         public IEnumerator RollToCenter()
@@ -225,8 +224,26 @@ namespace GreatChampion
         {
            
         }
+        private void Update()
+        {
+           if(roll)
+            {
+                rolltime += Time.deltaTime;
+            }
+           if(rolltime>0.4f&&roll)
+            {
+                Vector2 vector = new(20f * ((gameObject.transform.localScale.x < 0) ? -1 : 1), 0f);
+                gameObject.GetComponent<Rigidbody2D>().velocity = vector;
+                roll = false;
+                rolltime = 0;
+                StartCoroutine(RollToHero());
+            }
+
+        }
         tk2dSpriteAnimator _anim;
         GameObject hitter;
         tk2dSpriteAnimator _Hitanim;
+        float rolltime = 0f;
+        bool roll = false;
     }
 }

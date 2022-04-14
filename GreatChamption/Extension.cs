@@ -12,7 +12,6 @@ namespace GreatChampion
             {
 				float origspeed = velocity;
 				GameObject cloneobject = UnityEngine.Object.Instantiate(orig, spawnpos, rotate);
-				Modding.Logger.LogDebug("Start Wave");
 				PlayMakerFSM clonefsm = cloneobject.LocateMyFSM("shockwave");
 				clonefsm.SetState("Pause");
 				clonefsm.GetState("Move").RemoveAction(3);
