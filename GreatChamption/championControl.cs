@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 namespace GreatChampion
 {
     internal class ChampionControl:MonoBehaviour

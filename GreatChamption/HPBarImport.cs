@@ -1,4 +1,5 @@
 ﻿using MonoMod.ModInterop;
+using System;
 namespace GreatChampion
 {
     internal static class EnemyHPBar

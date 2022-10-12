@@ -1,34 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net35</TargetFramework>
     <OutputType>Library</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <LangVersion>latest</LangVersion>
 	<Deterministic>true</Deterministic>
-	<ImplicitUsings>true</ImplicitUsings>
   <DebugType>portable</DebugType>
   <RootNamespace>GreatChampion</RootNamespace>
-	<HKModdingPath>D:\HKmod\1.5Moddingapi</HKModdingPath>
+	<HKModdingPath>D:\HKmod\1.4Managed</HKModdingPath>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-  </ItemGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
       <HintPath>$(HKModdingPath)\Assembly-CSharp.dll</HintPath>
 		<Private>false</Private>
-    </Reference>
-    <Reference Include="MMHOOK_Assembly-CSharp">
-      <HintPath>$(HKModdingPath)\MMHOOK_Assembly-CSharp.dll</HintPath>
-		<Private>false</Private>
-    </Reference>
-    <Reference Include="MMHOOK_PlayMaker">
-      <HintPath>$(HKModdingPath)\MMHOOK_PlayMaker.dll</HintPath>
-		<Private>false</Private>
-    </Reference>
-    <Reference Include="MonoMod.Utils">
-      <HintPath>$(HKModdingPath)\MonoMod.Utils.dll</HintPath>
     </Reference>
     <Reference Include="PlayMaker">
       <HintPath>$(HKModdingPath)\PlayMaker.dll</HintPath>
@@ -51,7 +35,6 @@
     </Reference>
     <Reference Include="Vasi">
       <HintPath>$(HKModdingPath)\Vasi.dll</HintPath>
-		<Private>false</Private>
     </Reference>
   </ItemGroup>
 </Project>

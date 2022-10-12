@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 namespace GreatChampion
 {
     public class GreatChampion : Mod,ITogglableMod
@@ -19,10 +20,10 @@ namespace GreatChampion
             ResourceLoader.LoadResource(preloadedObjects);
             instance = this;
             USceneManager.activeSceneChanged += CheckScene;
-            ModHooks.LanguageGetHook += ChangeText;
+            ModHooks.Instance.LanguageGetHook += ChangeText;
         }
 
-        private string ChangeText(string key, string sheetTitle, string orig)
+        private string ChangeText(string key, string sheetTitle)
         {
            if(key== "NAME_FAILED_CHAMPION")
             {
@@ -36,7 +37,7 @@ namespace GreatChampion
             {
                 return "GreatChampion";
             }
-            return orig;
+            return Language.Language.GetInternal(key,sheetTitle);
         }
 
         private void CheckScene(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
@@ -45,11 +46,11 @@ namespace GreatChampion
             {
                 Log("Enter Champion scene");
                 GameManager.instance.StartCoroutine(CheckChampion());
-                ModHooks.ObjectPoolSpawnHook += ChangeBarrel;
+                ModHooks.Instance.ObjectPoolSpawnHook += ChangeBarrel;
             }
             else
             {
-                ModHooks.ObjectPoolSpawnHook -= ChangeBarrel;
+                ModHooks.Instance.ObjectPoolSpawnHook -= ChangeBarrel;
             }
         }
 
@@ -73,7 +74,7 @@ namespace GreatChampion
         public void Unload()
         {
             USceneManager.activeSceneChanged -= CheckScene;
-            ModHooks.LanguageGetHook -= ChangeText;
+            ModHooks.Instance.LanguageGetHook -= ChangeText;
         }
     }
 }

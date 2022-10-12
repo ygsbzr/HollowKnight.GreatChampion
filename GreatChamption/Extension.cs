@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace GreatChampion
 {
 	public static class Extension
