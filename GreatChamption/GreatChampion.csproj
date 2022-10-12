@@ -8,6 +8,7 @@
 	<ImplicitUsings>true</ImplicitUsings>
   <DebugType>portable</DebugType>
   <RootNamespace>GreatChampion</RootNamespace>
+	<HKModdingPath>D:\HKmod\1.5Moddingapi</HKModdingPath>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
@@ -15,41 +16,41 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\1.5Moddingapi\Assembly-CSharp.dll</HintPath>
+      <HintPath>$(HKModdingPath)\Assembly-CSharp.dll</HintPath>
 		<Private>false</Private>
     </Reference>
     <Reference Include="MMHOOK_Assembly-CSharp">
-      <HintPath>..\..\1.5Moddingapi\MMHOOK_Assembly-CSharp.dll</HintPath>
+      <HintPath>$(HKModdingPath)\MMHOOK_Assembly-CSharp.dll</HintPath>
 		<Private>false</Private>
     </Reference>
     <Reference Include="MMHOOK_PlayMaker">
-      <HintPath>..\..\1.5Moddingapi\MMHOOK_PlayMaker.dll</HintPath>
+      <HintPath>$(HKModdingPath)\MMHOOK_PlayMaker.dll</HintPath>
 		<Private>false</Private>
     </Reference>
     <Reference Include="MonoMod.Utils">
-      <HintPath>..\..\1.5Moddingapi\MonoMod.Utils.dll</HintPath>
+      <HintPath>$(HKModdingPath)\MonoMod.Utils.dll</HintPath>
     </Reference>
     <Reference Include="PlayMaker">
-      <HintPath>..\..\1.5Moddingapi\PlayMaker.dll</HintPath>
+      <HintPath>$(HKModdingPath)\PlayMaker.dll</HintPath>
 		<Private>false</Private>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\..\1.5Moddingapi\UnityEngine.dll</HintPath>
+      <HintPath>$(HKModdingPath)\UnityEngine.dll</HintPath>
 		<Private>false</Private>
     </Reference>
     <Reference Include="UnityEngine.AnimationModule">
-      <HintPath>..\..\1.5Moddingapi\UnityEngine.AnimationModule.dll</HintPath>
+      <HintPath>$(HKModdingPath)\UnityEngine.AnimationModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\1.5Moddingapi\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>$(HKModdingPath)\UnityEngine.CoreModule.dll</HintPath>
 		<Private>false</Private>
     </Reference>
     <Reference Include="UnityEngine.Physics2DModule">
-      <HintPath>..\..\1.5Moddingapi\UnityEngine.Physics2DModule.dll</HintPath>
+      <HintPath>$(HKModdingPath)\UnityEngine.Physics2DModule.dll</HintPath>
 		<Private>false</Private>
     </Reference>
     <Reference Include="Vasi">
-      <HintPath>..\..\1.5Moddingapi\Vasi.dll</HintPath>
+      <HintPath>$(HKModdingPath)\Vasi.dll</HintPath>
 		<Private>false</Private>
     </Reference>
   </ItemGroup>
